@@ -1,0 +1,33 @@
+using System.Collections;
+using System.Collections.Generic;
+using UnityEngine;
+
+public class Droper : MonoBehaviour
+{
+    // Start is called before the first frame update
+    [SerializeField] int dropTime = 3;
+    new MeshRenderer renderer;
+    new Rigidbody rigidbody;
+    private void Start()
+    {
+        renderer = GetComponent<MeshRenderer>();
+        renderer.enabled = false;
+        rigidbody = GetComponent<Rigidbody>();
+        rigidbody.useGravity = false;
+    }
+
+    // Update is called once per frame
+
+    void Update()
+    {
+        
+        if(Time.time > dropTime)
+        {
+           
+            renderer.enabled = true;
+            rigidbody.useGravity = true;
+
+
+        }
+    }
+}
