@@ -1,0 +1,20 @@
+using System.Collections;
+using System.Collections.Generic;
+using UnityEngine;
+
+public class Scorer : MonoBehaviour
+{
+    // Start is called before the first frame update
+
+    int key = 0;
+
+    void OnCollisionEnter(Collision other)
+    {
+        if (other.gameObject.tag != "HitOver")
+        {
+            key++;
+            Debug.Log(("You Get:") + key);
+        }
+        else { Debug.Log("This is HitOVER"); }
+    }
+}
