@@ -6,10 +6,14 @@ public class Movement : MonoBehaviour
 {
     [SerializeField]float upPower = 0f;
     Rigidbody rBody; //这个变量是刚体类型，所以为Rigibody 为前缀，后面的rBody是这个变量的名字。
+    AudioSource audioSource;
     [SerializeField] float RotatePower = 0f;
     void Start()
     {
        rBody =  GetComponent<Rigidbody>();//把刚体赋值给rBody.因为GetComponent<>这里调用了一个方法，所以后面要加括号。
+       audioSource = GetComponent<AudioSource>();
+    
+
     }
 
 
@@ -22,9 +26,17 @@ public class Movement : MonoBehaviour
     void ProcessThrust() {
         if (Input.GetKey(KeyCode.Space))
         {
-            rBody.AddRelativeForce(Vector3.up*upPower*Time.deltaTime);
-                }
-      
+            rBody.AddRelativeForce(Vector3.up * upPower * Time.deltaTime);
+            if (!audioSource.isPlaying)//注意，这里不能在后面加括号因为不能像方法一样调用。
+            {
+                audioSource.Play();
+            }
+
+
+        }
+        else {
+            audioSource.Stop();
+        }
     }
     void ProcessRotation() {
 
@@ -32,12 +44,12 @@ public class Movement : MonoBehaviour
         {
             GiveRotate(RotatePower);//注意，这个参数的传递，是因为GiveRotate()方法里，()里面建立了float rotatePush这个值，所以才能引用之前的变量。
         
-            Debug.Log("RotateLeft");
+            
         }
         else if (Input.GetKey(KeyCode.D))
         {
             GiveRotate(-RotatePower);    //所以这里相当于得到的是RotatePower 的值，能够参与计算。
-            Debug.Log("RotateRight");
+          
         }
 
     }
