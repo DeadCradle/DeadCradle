@@ -7,6 +7,10 @@ public class Movement : MonoBehaviour
     [SerializeField]float upPower = 0f;
     Rigidbody rBody; //这个变量是刚体类型，所以为Rigibody 为前缀，后面的rBody是这个变量的名字。
     AudioSource audioSource;
+
+    [SerializeField]AudioClip MainRocketSound;
+
+
     [SerializeField] float RotatePower = 0f;
     void Start()
     {
@@ -29,7 +33,7 @@ public class Movement : MonoBehaviour
             rBody.AddRelativeForce(Vector3.up * upPower * Time.deltaTime);
             if (!audioSource.isPlaying)//注意，这里不能在后面加括号因为不能像方法一样调用。
             {
-                audioSource.Play();
+                audioSource.PlayOneShot(MainRocketSound);
             }
 
 
@@ -66,4 +70,6 @@ public class Movement : MonoBehaviour
         transform.Rotate(Vector3.forward * rotatePush * Time.deltaTime);//注意看这里，rotatePush这里，就是针对GiveRotate.
         rBody.freezeRotation = false;//解冻旋转，所以物理系统接管。
     }
+
+
 }
